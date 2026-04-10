@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> 愛品 </title>
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#0057ff">
+
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+<style>
+
+body{
+text-align:center;
+font-family:sans-serif;
+margin-top:30px;
+
+background:white;
+background-image: radial-gradient(#ffd800 2px, transparent 2px);
+background-size:20px 20px;
+}
+
+/* カード */
+
+.card{
+
+width:340px;
+margin:auto;
+
+padding:20px;
+
+background:white;
+
+border-radius:20px;
+
+border:6px solid #0057ff;
+
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
+
+}
+
+/* ロゴ */
+
+.logo{
+
+width:90px;
+height:90px;
+
+margin:auto;
+
+border-radius:50%;
+
+background:#ffd800;
+
+border:6px solid #0057ff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.logo span{
+
+font-size:48px;
+font-weight:bold;
+
+color:white;
+
+-webkit-text-stroke:3px red;
+
+}
+
+/* 店名 */
+
+.shop{
+
+font-size:26px;
+font-weight:bold;
+
+margin-top:10px;
+
+}
+
+/* 会員番号 */
+
+.member{
+
+margin-top:15px;
+font-size:16px;
+
+}
+
+.number{
+
+font-size:22px;
+font-weight:bold;
+
+margin:10px;
+
+}
+
+/* 入力 */
+
+input{
+
+font-size:20px;
+
+padding:10px;
+
+width:220px;
+
+text-align:center;
+
+border:2px solid #0057ff;
+
+border-radius:8px;
+
+}
+
+/* ボタン */
+
+button{
+
+font-size:18px;
+
+padding:10px 18px;
+
+margin:8px;
+
+background:#ff2a2a;
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+}
+
+/* バーコード */
+
+.barcodebox{
+
+width:100%;
+
+overflow:hidden;
+
+margin-top:20px;
+
+}
+
+#barcode{
+
+width:100%;
+
+}
+
+/* フッター */
+
+.footer{
+
+margin-top:15px;
+
+font-size:14px;
+
+background:#ffd800;
+
+padding:6px;
+
+border-radius:8px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="logo">
+<span>p</span>
+</div>
+
+<div class="shop">仮店</div>
+
+<div class="member">会員番号</div>
+
+<div class="number" id="showNumber"></div>
+
+<div id="inputArea">
+
+<input id="number" placeholder="10桁番号">
+
+<br>
+
+<button onclick="saveCard()">登録</button>
+
+</div>
+
+<div class="barcodebox">
+<svg id="barcode"></svg>
+</div>
+
+<br>
+
+<button onclick="editCard()">番号変更</button>
+
+<div class="footer">
+お買い上げ金額に応じてポイントが付きます
+</div>
+
+</div>
+
+<script>
+
+window.onload=function(){
+
+let saved=localStorage.getItem("card")
+
+if(saved){
+
+document.getElementById("showNumber").innerText=saved
+
+drawBarcode(saved)
+
+}
+
+}
+
+function saveCard(){
+
+let num=document.getElementById("number").value
+
+if(num==""){
+alert("番号を入力してください")
+return
+}
+
+localStorage.setItem("card",num)
+
+document.getElementById("showNumber").innerText=num
+
+drawBarcode(num)
+
+}
+
+function editCard(){
+
+localStorage.removeItem("card")
+
+document.getElementById("number").value=""
+
+document.getElementById("showNumber").innerText=""
+
+document.getElementById("barcode").innerHTML=""
+
+}
+
+function drawBarcode(num){
+
+JsBarcode("#barcode", num, {
+
+format:"CODE39",
+
+width:1.8,
+height:80,
+
+displayValue:false,
+
+margin:0
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
