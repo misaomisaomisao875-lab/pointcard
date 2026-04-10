@@ -187,7 +187,7 @@ border-radius:8px;
 <span>愛</span>
 </div>
 
-<div class="shop">千葉店</div>
+<div class="shop">ポイントカード</div>
 
 <div class="member">会員番号</div>
 
@@ -207,11 +207,8 @@ border-radius:8px;
 <svg id="barcode"></svg>
 </div>
 
-<br>
 
-<button onclick="editCard()">番号変更</button>
-
-<div class="footer">
+  
 お買い上げ金額に応じてポイントが付きます
 </div>
 
@@ -248,7 +245,10 @@ document.getElementById("showNumber").innerText=num
 
 drawBarcode(num)
 
+document.getElementById("inputArea").style.display="none"
+
 }
+  
 
 function editCard(){
 
