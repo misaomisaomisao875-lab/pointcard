@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <title> 愛品 </title>
 <link rel="manifest" href="manifest.json">
-
 <meta name="theme-color" content="#0057ff">
-
 <link rel="apple-touch-icon" href="icon-192.png">
 
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
@@ -17,7 +15,6 @@ body{
 text-align:center;
 font-family:sans-serif;
 margin-top:30px;
-
 background:white;
 background-image: radial-gradient(#ffd800 2px, transparent 2px);
 background-size:20px 20px;
@@ -106,13 +103,18 @@ padding:6px;
 border-radius:8px;
 }
 
-/* メッセージ */
 .message{
 margin-top:15px;
 font-size:16px;
 background:#fff3cd;
 padding:10px;
 border-radius:10px;
+}
+
+/* 管理ボタン（目立たせない） */
+.admin{
+font-size:12px;
+background:gray;
 }
 
 </style>
@@ -143,20 +145,20 @@ border-radius:10px;
 <svg id="barcode"></svg>
 </div>
 
-<!-- メッセージ表示 -->
 <div class="message">
 <span id="msg">メッセージはありません</span>
 </div>
 
-<!-- 店員用（最初は非表示） -->
 <div id="staffMsgArea" style="display:none;">
 <input id="msgInput" placeholder="メッセージ入力">
 <br>
 <button onclick="saveMsg()">保存</button>
 </div>
 
-<!-- 店員ボタン -->
 <button onclick="openMsg()">メッセージ編集</button>
+
+<!-- 管理ボタン -->
+<button class="admin" onclick="resetCard()">管理</button>
 
 <div class="footer">
 お買い上げ金額に応じてポイントが付きます
@@ -176,7 +178,6 @@ drawBarcode(saved)
 document.getElementById("inputArea").style.display="none"
 }
 
-// メッセージ読み込み
 let msg = localStorage.getItem("msg") || "メッセージはありません"
 document.getElementById("msg").innerText = msg
 
@@ -192,21 +193,17 @@ return
 }
 
 localStorage.setItem("card",num)
-
 document.getElementById("showNumber").innerText=num
-
 drawBarcode(num)
-
 document.getElementById("inputArea").style.display="none"
 
 }
 
-// パスコードで開く
 function openMsg(){
 
 let pass = prompt("パスコードを入力")
 
-if(pass === "1234"){  // ←ここ変更OK
+if(pass === "1234"){
 document.getElementById("staffMsgArea").style.display="block"
 }else{
 alert("パスコードが違います")
@@ -214,20 +211,39 @@ alert("パスコードが違います")
 
 }
 
-// メッセージ保存
 function saveMsg(){
 
 let msg = document.getElementById("msgInput").value
 
 localStorage.setItem("msg", msg)
-
 document.getElementById("msg").innerText = msg
-
 document.getElementById("staffMsgArea").style.display="none"
 
 }
 
-// バーコード
+/* 🔥 ここが追加された管理機能 */
+function resetCard(){
+
+let pass = prompt("パスコードを入力")
+
+if(pass === "1234"){
+
+localStorage.removeItem("card")
+
+document.getElementById("showNumber").innerText=""
+document.getElementById("barcode").innerHTML=""
+
+// 入力欄復活
+document.getElementById("inputArea").style.display="block"
+
+}else{
+
+alert("パスコードが違います")
+
+}
+
+}
+
 function drawBarcode(num){
 
 JsBarcode("#barcode", num, {
