@@ -23,156 +23,96 @@ background-image: radial-gradient(#ffd800 2px, transparent 2px);
 background-size:20px 20px;
 }
 
-/* カード */
-
 .card{
-
 width:340px;
 margin:auto;
-
 padding:20px;
-
 background:white;
-
 border-radius:20px;
-
 border:6px solid #0057ff;
-
 box-shadow:0 6px 15px rgba(0,0,0,0.2);
-
 }
 
-/* ロゴ */
-
 .logo{
-
 width:90px;
 height:90px;
-
 margin:auto;
-
 border-radius:50%;
-
 background:#ffd800;
-
 border:6px solid #0057ff;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 }
 
 .logo span{
-
 font-size:48px;
 font-weight:bold;
-
 color:white;
-
 -webkit-text-stroke:3px red;
-
 }
-
-/* 店名 */
 
 .shop{
-
 font-size:26px;
 font-weight:bold;
-
 margin-top:10px;
-
 }
 
-/* 会員番号 */
-
 .member{
-
 margin-top:15px;
 font-size:16px;
-
 }
 
 .number{
-
 font-size:22px;
 font-weight:bold;
-
 margin:10px;
-
 }
-
-/* 入力 */
 
 input{
-
 font-size:20px;
-
 padding:10px;
-
 width:220px;
-
 text-align:center;
-
 border:2px solid #0057ff;
-
 border-radius:8px;
-
 }
-
-/* ボタン */
 
 button{
-
 font-size:18px;
-
 padding:10px 18px;
-
 margin:8px;
-
 background:#ff2a2a;
-
 color:white;
-
 border:none;
-
 border-radius:10px;
-
 }
 
-/* バーコード */
-
 .barcodebox{
-
 width:100%;
-
 overflow:hidden;
-
 margin-top:20px;
-
 }
 
 #barcode{
-
 width:100%;
-
 }
 
-/* フッター */
-
 .footer{
-
 margin-top:15px;
-
 font-size:14px;
-
 background:#ffd800;
-
 padding:6px;
-
 border-radius:8px;
+}
 
+/* メッセージ */
+.message{
+margin-top:15px;
+font-size:16px;
+background:#fff3cd;
+padding:10px;
+border-radius:10px;
 }
 
 </style>
@@ -194,21 +134,31 @@ border-radius:8px;
 <div class="number" id="showNumber"></div>
 
 <div id="inputArea">
-
 <input id="number" placeholder="10桁番号">
-
 <br>
-
 <button onclick="saveCard()">登録</button>
-
 </div>
 
 <div class="barcodebox">
 <svg id="barcode"></svg>
 </div>
 
+<!-- メッセージ表示 -->
+<div class="message">
+<span id="msg">メッセージはありません</span>
+</div>
 
-  
+<!-- 店員用（最初は非表示） -->
+<div id="staffMsgArea" style="display:none;">
+<input id="msgInput" placeholder="メッセージ入力">
+<br>
+<button onclick="saveMsg()">保存</button>
+</div>
+
+<!-- 店員ボタン -->
+<button onclick="openMsg()">メッセージ編集</button>
+
+<div class="footer">
 お買い上げ金額に応じてポイントが付きます
 </div>
 
@@ -221,14 +171,14 @@ window.onload=function(){
 let saved=localStorage.getItem("card")
 
 if(saved){
-
 document.getElementById("showNumber").innerText=saved
-
 drawBarcode(saved)
-
 document.getElementById("inputArea").style.display="none"
-
 }
+
+// メッセージ読み込み
+let msg = localStorage.getItem("msg") || "メッセージはありません"
+document.getElementById("msg").innerText = msg
 
 }
 
@@ -250,33 +200,42 @@ drawBarcode(num)
 document.getElementById("inputArea").style.display="none"
 
 }
-  
 
-function editCard(){
+// パスコードで開く
+function openMsg(){
 
-localStorage.removeItem("card")
+let pass = prompt("パスコードを入力")
 
-document.getElementById("number").value=""
-
-document.getElementById("showNumber").innerText=""
-
-document.getElementById("barcode").innerHTML=""
+if(pass === "1234"){  // ←ここ変更OK
+document.getElementById("staffMsgArea").style.display="block"
+}else{
+alert("パスコードが違います")
+}
 
 }
 
+// メッセージ保存
+function saveMsg(){
+
+let msg = document.getElementById("msgInput").value
+
+localStorage.setItem("msg", msg)
+
+document.getElementById("msg").innerText = msg
+
+document.getElementById("staffMsgArea").style.display="none"
+
+}
+
+// バーコード
 function drawBarcode(num){
 
 JsBarcode("#barcode", num, {
-
 format:"CODE39",
-
 width:1.8,
 height:80,
-
 displayValue:false,
-
 margin:0
-
 })
 
 }
