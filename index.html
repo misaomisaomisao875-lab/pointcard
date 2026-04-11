@@ -94,6 +94,9 @@ margin-top:20px;
 #barcode{
 width:100%;
 }
+<button style="background:#06C755;" onclick="goLine()">公式LINE</button>
+<button style="background:#0057ff;" onclick="goWeb()">ホームページ</button>
+
 
 .footer{
 margin-top:15px;
@@ -159,6 +162,11 @@ background:gray;
 
 <!-- 管理ボタン -->
 <button class="admin" onclick="resetCard()">管理</button>
+
+<div style="margin-top:15px;">
+<button style="background:#06C755;width:140px;" onclick="goLine()">公式LINE</button>
+<button style="background:#0057ff;width:140px;" onclick="goWeb()">ホームページ</button>
+</div>
 
 <div class="footer">
 お買い上げ金額に応じてポイントが付きます
@@ -254,6 +262,14 @@ displayValue:false,
 margin:0
 })
 
+}
+
+function goLine(){
+window.open("https://page.line.me/hac4418i", "_blank")
+}
+
+function goWeb(){
+window.open("https://www.aihin.co.jp/chiba/", "_blank")
 }
 
 </script>
