@@ -133,7 +133,24 @@ transform:scale(0.95);
 box-shadow:0 2px 5px rgba(0,0,0,0.2);
 }
  
+.web-btn{
+background:linear-gradient(135deg,#0057ff,#003bb5);
+color:white;
+font-size:18px;
+padding:12px;
+width:90%;
+border:none;
+border-radius:30px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+transition:0.2s;
+}
 
+.web-btn:active{
+transform:scale(0.95);
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+ 
   
 </style>
 
@@ -184,7 +201,9 @@ box-shadow:0 2px 5px rgba(0,0,0,0.2);
 <button onclick="goLine()" class="line-btn">
 💬 公式LINEはこちら
 </button>
-<button style="background:#0057ff;width:140px;" onclick="goWeb()">ホームページはこちら</button>
+<button onclick="goWeb()" class="web-btn">
+🌐 ホームページはこちら
+</button>
 </div>
 
 <div class="footer">
