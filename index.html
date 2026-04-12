@@ -94,9 +94,6 @@ margin-top:20px;
 #barcode{
 width:100%;
 }
-<button style="background:#06C755;" onclick="goLine()">愛品館千葉店公式LINE</button>
-<button style="background:#0057ff;" onclick="goWeb()">ホームページはこちら</button>
-
 
 .footer{
 margin-top:15px;
@@ -114,7 +111,6 @@ padding:10px;
 border-radius:10px;
 }
 
-/* 管理ボタン（目立たせない） */
 .admin{
 font-size:12px;
 background:gray;
@@ -152,17 +148,19 @@ background:gray;
 <span id="msg">メッセージはありません</span>
 </div>
 
+<!-- メッセージ入力 -->
 <div id="staffMsgArea" style="display:none;">
-<input id="msgInput" placeholder="メッセージ入力">
+<input id="msgInput" placeholder="ひとことメッセージを書いてね">
 <br>
 <button onclick="saveMsg()">保存</button>
 </div>
 
 <button onclick="openMsgArea()">メッセージ入力</button>
-  
+
 <!-- 管理ボタン -->
 <button class="admin" onclick="resetCard()">管理</button>
 
+<!-- 外部リンク -->
 <div style="margin-top:15px;">
 <button style="background:#06C755;width:140px;" onclick="goLine()">愛品館千葉店公式LINE</button>
 <button style="background:#0057ff;width:140px;" onclick="goWeb()">ホームページはこちら</button>
@@ -206,11 +204,11 @@ drawBarcode(num)
 document.getElementById("inputArea").style.display="none"
 
 }
+
 function openMsgArea(){
 document.getElementById("staffMsgArea").style.display="block"
 }
 
-  
 function saveMsg(){
 
 let msg = document.getElementById("msgInput").value
@@ -221,7 +219,6 @@ document.getElementById("staffMsgArea").style.display="none"
 
 }
 
-/* 🔥 ここが追加された管理機能 */
 function resetCard(){
 
 let pass = prompt("パスコードを入力")
@@ -232,8 +229,6 @@ localStorage.removeItem("card")
 
 document.getElementById("showNumber").innerText=""
 document.getElementById("barcode").innerHTML=""
-
-// 入力欄復活
 document.getElementById("inputArea").style.display="block"
 
 }else{
@@ -241,7 +236,8 @@ document.getElementById("inputArea").style.display="block"
 alert("パスコードが違います")
 
 }
-  
+
+}
 
 function drawBarcode(num){
 
