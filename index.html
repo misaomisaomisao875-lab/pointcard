@@ -158,8 +158,8 @@ background:gray;
 <button onclick="saveMsg()">保存</button>
 </div>
 
-<button onclick="openMsg()">メッセージ編集</button>
-
+<button onclick="openMsgArea()">メッセージ入力</button>
+  
 <!-- 管理ボタン -->
 <button class="admin" onclick="resetCard()">管理</button>
 
@@ -206,19 +206,11 @@ drawBarcode(num)
 document.getElementById("inputArea").style.display="none"
 
 }
-
-function openMsg(){
-
-let pass = prompt("パスコードを入力")
-
-if(pass === "1234"){
+function openMsgArea(){
 document.getElementById("staffMsgArea").style.display="block"
-}else{
-alert("パスコードが違います")
 }
 
-}
-
+  
 function saveMsg(){
 
 let msg = document.getElementById("msgInput").value
@@ -249,8 +241,7 @@ document.getElementById("inputArea").style.display="block"
 alert("パスコードが違います")
 
 }
-
-}
+  
 
 function drawBarcode(num){
 
